@@ -23,6 +23,9 @@ contract AgToken is ERC20 {
 
     mapping(address => uint256) private _balances;
 
+    event Transfer(address indexed _from, address indexed _to, uint256 _value)
+    event Approval(address indexed _owner, address indexed _spender, uint256 _value)
+
     constructor() {
         _name = "AgToken";
         _decimal = 18;
@@ -45,7 +48,7 @@ contract AgToken is ERC20 {
     }
 
     function balanceOf(address _owner) public view returns (uint256) {
-        return balance[ _owner ]
+        return balances[ _owner ]
     }
 
     function transfer(address _to, uint256 _value) public returns (bool) {
@@ -56,7 +59,8 @@ contract AgToken is ERC20 {
         require(userBalances >= _value, "Blockchain Token: Insufficient fund);
 
         _balances[msg.sender] -= _value;
-        _balances[_to] += _value
+
+        _balances[_to] += _value;
 
         returns true;
     }
